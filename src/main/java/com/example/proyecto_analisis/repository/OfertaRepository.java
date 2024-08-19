@@ -308,23 +308,10 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                     "WHERE ID_OFERTA = :idOfertaP", nativeQuery = true)
     public Object[] obtenerDetalleOfertaAplicante(@Param("idOfertaP") int idOfertaP);
 
-    @Query(value = "SELECT COUNT(*) as cantidadAplicando from solicitudes WHERE ID_OFERTA = :idOfertaP and EMISOR_SOLICITUD = 0;",nativeQuery = true)
+    @Query(value = "select count(1) as cantidad_aplicando from solicitudes where ID_OFERTA=:idOfertaP and ID_ESTADO_SOLICITUD=2",nativeQuery = true)
     public int obtenerCantidadAplicando(@Param("idOfertaP") int idOfertaP);
 
-    @Query(value = "SELECT COUNT(DISTINCT S.ID_PERSONA) AS cantidadSeleccionados\r\n" + //
-                    "FROM solicitantes AS S\r\n" + //
-                    "INNER JOIN historial_academico AS HA ON (S.ID_PERSONA = HA.ID_PERSONA)\r\n" + //
-                    "INNER JOIN formacion_profesional AS FP ON (HA.ID_FORMACION_PROFESIONAL = FP.ID_FORMACION_PROFESIONAL)\r\n" + //
-                    "INNER JOIN requisitos_academicos AS RA ON (FP.ID_FORMACION_PROFESIONAL = RA.ID_FORMACION_PROFESIONAL)\r\n" + //
-                    "\r\n" + //
-                    "-- Coincidencia por experiencia laboral\r\n" + //
-                    "LEFT JOIN experiencia_laboral AS EL ON (S.ID_PERSONA = EL.ID_PERSONA)\r\n" + //
-                    "LEFT JOIN puestos AS P ON (EL.ID_PUESTO = P.ID_PUESTO)\r\n" + //
-                    "LEFT JOIN requisitos_laborales AS RL ON (P.ID_PUESTO = RL.ID_PUESTO)\r\n" + //
-                    "\r\n" + //
-                    "WHERE RA.ID_OFERTA = :idOfertaP\r\n" + //
-                    "   OR RL.ID_OFERTA = :idOfertaP\r\n" + //
-                    "GROUP BY S.ID_PERSONA;", nativeQuery = true)
+    @Query(value = "select count(1) as cantidad_seleccionados from solicitudes where ID_OFERTA=:idOfertaP and ID_ESTADO_SOLICITUD=3", nativeQuery = true)
     public int obtenerCantidadSeleccionados(@Param("idOfertaP") int idOfertaP);
 
     // obtener formaciones academicas
@@ -335,15 +322,20 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                     "WHERE s.ID_PERSONA = :idPersonaP;",nativeQuery = true)
     public List<String> obtenerFormacionesProf (@Param("idPersonaP") int idPersonaP);
 
-    @Query(value = "SELECT s.ID_PERSONA, soli.ID_SOLICITUD, s.URL_FOTO_PERFIL,  "+
-                    "        CONCAT(p.primer_nombre,' ',p.segundo_nombre,' ',p.primer_apellido,' ',p.segundo_apellido) as nombreCompleto,"+
-                    "        DATE_FORMAT(soli.fecha_solicitud, '%d %b, %Y') as fechaSolicitud,"+
-                    "        soli.id_estado_solicitud "+
-                    "FROM solicitudes soli "+
-                    "INNER JOIN solicitantes s on soli.ID_SOLICITANTE = s.ID_PERSONA "+
-                    "INNER JOIN personas p on s.ID_PERSONA = p.ID_PERSONA "+
-                    "WHERE ID_OFERTA = :idOfertaP AND soli.EMISOR_SOLICITUD = 0", nativeQuery = true)
+        @Query(value = "SELECT s.ID_PERSONA, " +
+        "       soli.ID_SOLICITUD, " +
+        "       s.URL_FOTO_PERFIL, " +
+        "       CONCAT(p.primer_nombre, ' ', p.segundo_nombre, ' ', " +
+        "              p.primer_apellido, ' ', p.segundo_apellido) AS nombreCompleto, " +
+        "       DATE_FORMAT(soli.fecha_solicitud, '%d %b, %Y') AS fechaSolicitud, " +
+        "       soli.id_estado_solicitud " +
+        "FROM solicitudes soli " +
+        "INNER JOIN solicitantes s ON soli.ID_SOLICITANTE = s.ID_PERSONA " +
+        "INNER JOIN personas p ON s.ID_PERSONA = p.ID_PERSONA " +
+        "WHERE ID_OFERTA = :idOfertaP", 
+    nativeQuery = true)
     public List<Object[]> obtenerDetalleAplicanteOferta(@Param("idOfertaP") int idOfertaP);
+
 
     //
     @Query(value = "SELECT S.ID_PERSONA, "+
