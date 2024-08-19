@@ -139,7 +139,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                     "    em.url_logo "+
                     "FROM notificaciones_empresas ne "+
                     "INNER JOIN empresa em on ne.ID_EMPRESA = em.ID_EMPRESA "+
-                    "WHERE em.ID_EMPRESA = :idEmpresaP ", nativeQuery = true)
+                    "WHERE em.ID_EMPRESA = :idEmpresaP ORDER BY ne.fecha desc", nativeQuery = true)
     public List<Object[]> obtenerNotificionesEmpresa(@Param("idEmpresaP") int idEmpresaP);
 
     // Agg oferta-puesto
