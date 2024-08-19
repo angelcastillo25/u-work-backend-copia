@@ -42,7 +42,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
 
     @Query(value = "select count(1) as aplicando "+
                     "from solicitudes "+
-                    "where ID_SOLICITANTE=:idSolicitante and ID_OFERTA=:idOferta", nativeQuery = true)
+                    "where ID_SOLICITANTE=:idSolicitante and ID_OFERTA=:idOferta and ID_ESTADO_SOLICITUD in (1,2,3)", nativeQuery = true)
     public int obtenerAplicacionSolicitante(@Param("idOferta") int idOferta, @Param("idSolicitante") int idSolicitante);
 
     @Query(value = "SELECT B.PUESTO " +
