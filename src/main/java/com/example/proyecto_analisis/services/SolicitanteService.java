@@ -209,6 +209,7 @@ public class SolicitanteService {
                     map.put("descripcion", obj[4]);
                     map.put("fecha", obj[5]);
                     map.put("idSolicitud", obj[6]);
+                    map.put("emisor", obj[7]);
 
                     return map;
                 }).collect(Collectors.toList());

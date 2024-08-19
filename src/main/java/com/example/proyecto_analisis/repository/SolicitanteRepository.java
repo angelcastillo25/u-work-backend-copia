@@ -81,7 +81,7 @@ public interface SolicitanteRepository extends JpaRepository<Solicitante, Intege
                 "    em.nombre_empresa, \r\n" + //
                 "    ns.descripcion, \r\n" + //
                 "    DATE_FORMAT(ns.fecha, '%d %b, %Y') as fechaEnvio, \r\n" + //
-                "    ns.id_solicitud \r\n" + //
+                "    ns.id_solicitud, s.emisor_solicitud \r\n" + //
                 "FROM notificaciones_solicitantes ns \r\n" + //
                 "INNER JOIN solicitudes s on ns.ID_SOLICITUD = s.ID_SOLICITUD \r\n" + //
                 "INNER JOIN ofertas o on s.ID_OFERTA = o.ID_OFERTA \r\n" + //
