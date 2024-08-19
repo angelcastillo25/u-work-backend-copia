@@ -397,6 +397,7 @@ public class OfertaService {
                 map.put("urlPerfil", obj[1]);
                 map.put("nombre", obj[2]);
                 map.put("lugarOrigen", obj[3]);
+                map.put("aplicando", ofertaRepository.obtenerAplicacionSolicitante(idOfertaP, (Integer) obj[0]));
                 List<String> formaciones = ofertaRepository.obtenerFormacionesProf((Integer) obj[0]);
                 map.put("formaciones", 
                    formaciones
