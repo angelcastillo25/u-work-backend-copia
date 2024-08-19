@@ -332,7 +332,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
         "FROM solicitudes soli " +
         "INNER JOIN solicitantes s ON soli.ID_SOLICITANTE = s.ID_PERSONA " +
         "INNER JOIN personas p ON s.ID_PERSONA = p.ID_PERSONA " +
-        "WHERE ID_OFERTA = :idOfertaP and (soli.id_estado_solicitud=3 or soli.id_estado_solicitud=2)", 
+        "WHERE ID_OFERTA = :idOfertaP and (soli.id_estado_solicitud=3 or soli.id_estado_solicitud=2 or soli.id_estado_solicitud=1)", 
     nativeQuery = true)
     public List<Object[]> obtenerDetalleAplicanteOferta(@Param("idOfertaP") int idOfertaP);
 
