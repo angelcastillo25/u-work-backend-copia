@@ -206,7 +206,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     public Map<String, Object> obtenerDetalleOfertaEmpresa(@Param("idOferta") int idOferta);
 
 
-    @Query(value = "select COUNT(*) AS CANTIDAD_APLICANTES from solicitudes where ID_OFERTA=:idOferta", nativeQuery = true)
+    @Query(value = "select COUNT(*) AS CANTIDAD_APLICANTES from solicitudes where ID_OFERTA=:idOferta and id_estado_solicitud in (2,3)", nativeQuery = true)
     public int obtenerCantidadAplicantesOferta(@Param("idOferta") int idOferta);
 
 
