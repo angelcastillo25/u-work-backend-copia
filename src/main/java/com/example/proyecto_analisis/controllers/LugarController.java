@@ -22,13 +22,22 @@ public class LugarController {
     //Departamentos
     @GetMapping("/lugares/dep")
     public List<Lugar> mostrarDepartamentos(){
-        return lugarImpl.mostrarLugares(2, 1);
+        try {
+            return lugarImpl.mostrarLugares(2, 1);
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     //Municipios
     @GetMapping("/lugares/mun/{id_lugar_departamento}")
     public List<Lugar> mostrarMunicipios(@PathVariable int id_lugar_departamento){
-        return lugarImpl.mostrarLugares(3, id_lugar_departamento);
+        try {
+            return lugarImpl.mostrarLugares(3, id_lugar_departamento);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
     
 }

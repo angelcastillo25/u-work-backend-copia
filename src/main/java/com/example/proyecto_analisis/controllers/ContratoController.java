@@ -23,7 +23,11 @@ public class ContratoController {
 
     @GetMapping("/mostrar")
     public List<Contrato> mostrarContratos() {
-        return (List<Contrato>) contratoimpl.mostrarContratos();
+        try {
+            return (List<Contrato>) contratoimpl.mostrarContratos();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @PostMapping("ingresar/{contratoP}")

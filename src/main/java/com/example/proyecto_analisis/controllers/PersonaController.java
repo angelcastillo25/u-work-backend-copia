@@ -66,31 +66,34 @@ public class PersonaController {
 
     @GetMapping("/perfil/{idPersona}")
     public ResponseEntity<Object> mostrarDatosPerfilAplicante(@PathVariable int idPersona) {
-        
-        DatosPA_DTO datosPersonales = personaImpl.obtenerDatosPerfilApp(idPersona);
-        List<FormacionPA_DTO> formacion = personaImpl.obtenerFomacionPA(idPersona);
-        List<HistorialMedicoPA_DTO> historialMedico = personaImpl.obtenerHistorialMedicoPA(idPersona);
-        List<SegurosPA_DTO> seguros = personaImpl.obtenerSegurosPA(idPersona);
-        List<IdiomasPA_DTO> idiomas = personaImpl.obtenerIdiomasPA(idPersona);
-        List<ExperienciaPA_DTO> experienciaLaboral = personaImpl.obtenerExperienciaLaboralPA(idPersona);
-        List<FamiliaresPA_DTO> familiares = personaImpl.obtenerFamiliaresPA(idPersona);
-        
-        PerfilAplicanteDTO perfil = new PerfilAplicanteDTO();
-
-        perfil.setDatosPersonales(datosPersonales);
-        perfil.setFormacion(formacion);
-        perfil.setHistorialMedico(historialMedico);
-        perfil.setSeguros(seguros);
-        perfil.setIdiomas(idiomas);
-        perfil.setExperiencia(experienciaLaboral);
-        perfil.setFamiliares(familiares);
-
-        if(historialMedico != null){
-            return ResponseEntity.ok(perfil);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al obtener perfil");
+        try {
+            DatosPA_DTO datosPersonales = personaImpl.obtenerDatosPerfilApp(idPersona);
+            List<FormacionPA_DTO> formacion = personaImpl.obtenerFomacionPA(idPersona);
+            List<HistorialMedicoPA_DTO> historialMedico = personaImpl.obtenerHistorialMedicoPA(idPersona);
+            List<SegurosPA_DTO> seguros = personaImpl.obtenerSegurosPA(idPersona);
+            List<IdiomasPA_DTO> idiomas = personaImpl.obtenerIdiomasPA(idPersona);
+            List<ExperienciaPA_DTO> experienciaLaboral = personaImpl.obtenerExperienciaLaboralPA(idPersona);
+            List<FamiliaresPA_DTO> familiares = personaImpl.obtenerFamiliaresPA(idPersona);
+            
+            PerfilAplicanteDTO perfil = new PerfilAplicanteDTO();
+    
+            perfil.setDatosPersonales(datosPersonales);
+            perfil.setFormacion(formacion);
+            perfil.setHistorialMedico(historialMedico);
+            perfil.setSeguros(seguros);
+            perfil.setIdiomas(idiomas);
+            perfil.setExperiencia(experienciaLaboral);
+            perfil.setFamiliares(familiares);
+    
+            if(historialMedico != null){
+                return ResponseEntity.ok(perfil);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al obtener perfil");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-
     }
+
 
 }

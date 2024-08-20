@@ -10,8 +10,6 @@ import com.example.proyecto_analisis.models.EstadoCivil;
 import com.example.proyecto_analisis.models.Genero;
 import com.example.proyecto_analisis.models.Industria;
 import com.example.proyecto_analisis.models.Lugar;
-import com.example.proyecto_analisis.models.Modalidad;
-import com.example.proyecto_analisis.models.Puesto;
 import com.example.proyecto_analisis.models.dto.DatosGP;
 import com.example.proyecto_analisis.models.dto.OptionsCrearOfertaDTO;
 import com.example.proyecto_analisis.repository.ContratoRepository;
@@ -22,7 +20,6 @@ import com.example.proyecto_analisis.repository.NivelAcademicoRepository;
 import com.example.proyecto_analisis.repository.NivelIdiomaRepository;
 import com.example.proyecto_analisis.repository.PuestoRepository;
 import com.example.proyecto_analisis.repository.TipoEmpleoRepository;
-import com.example.proyecto_analisis.services.IdiomaService;
 import com.example.proyecto_analisis.services.IndustriaService;
 import com.example.proyecto_analisis.services.LugarService;
 import com.example.proyecto_analisis.services.impl.EstCivilServiceImpl;
@@ -73,38 +70,46 @@ public class DatosGPController {
 
     @GetMapping("/SIR/info")
     public ResponseEntity<DatosGP> obtenerInfoRegistro() {
-        List<Genero> generos = generoImpl.mostrarGeneros();
-        List<Lugar> paises = lugarImpl.mostrarPaises(1);
-        List<EstadoCivil> estadoCivils = estCivilImpl.mostrarEstadosCiviles();
-        List<Industria> industrias = industriaImpl.mostrarIndustrias();
+        try {
+            List<Genero> generos = generoImpl.mostrarGeneros();
+            List<Lugar> paises = lugarImpl.mostrarPaises(1);
+            List<EstadoCivil> estadoCivils = estCivilImpl.mostrarEstadosCiviles();
+            List<Industria> industrias = industriaImpl.mostrarIndustrias();
 
-        DatosGP res = new DatosGP();
+            DatosGP res = new DatosGP();
 
-        res.setGeneros(generos);
-        res.setLugares(paises);
-        res.setEstadoCivil(estadoCivils);
-        res.setIndustrias(industrias);
+            res.setGeneros(generos);
+            res.setLugares(paises);
+            res.setEstadoCivil(estadoCivils);
+            res.setIndustrias(industrias);
 
-        return ResponseEntity.ok(res);
+            return ResponseEntity.ok(res);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/crearOferta/info")
     public ResponseEntity<OptionsCrearOfertaDTO> obtenerInfoCrearOferta() {
+        try {
+            OptionsCrearOfertaDTO opciones = new OptionsCrearOfertaDTO();
 
-        OptionsCrearOfertaDTO opciones = new OptionsCrearOfertaDTO();
-
-        opciones.setTiposEmpleos(tipoEmpleoRep.findAll());
-        opciones.setTiposContratos(contratosRep.findAll());
-        opciones.setPaises(lugarImpl.mostrarPaises(1));
-        opciones.setFormacionesAcademicas(formacionProfRep.findAll());
-        opciones.setNivelesAcademicos(nRepository.findAll());
-        opciones.setModalidades(mRepository.findAll());
-        opciones.setPuestos(puestoRepository.findAll());
-        opciones.setIdiomas(idiomaRepository.findAll());
-        opciones.setNivelIdioma(nivelIdiomaRep.findAll());
+            opciones.setTiposEmpleos(tipoEmpleoRep.findAll());
+            opciones.setTiposContratos(contratosRep.findAll());
+            opciones.setPaises(lugarImpl.mostrarPaises(1));
+            opciones.setFormacionesAcademicas(formacionProfRep.findAll());
+            opciones.setNivelesAcademicos(nRepository.findAll());
+            opciones.setModalidades(mRepository.findAll());
+            opciones.setPuestos(puestoRepository.findAll());
+            opciones.setIdiomas(idiomaRepository.findAll());
+            opciones.setNivelIdioma(nivelIdiomaRep.findAll());
 
 
-        return ResponseEntity.ok(opciones);
+            return ResponseEntity.ok(opciones);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        
     }
     
 

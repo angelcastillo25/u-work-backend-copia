@@ -2,7 +2,6 @@ package com.example.proyecto_analisis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,14 +27,23 @@ public class LoginDTOController {
 
     @PostMapping("/login/solicitante")
     public ResponseEntity<Integer> autenticarSolicitante(@RequestBody LoginDTO loginDTO){
-        int idPersonaSoli = solicitanteImpl.autenticarSolicitante(loginDTO.getCorreo(), loginDTO.getContrasena());
-        return ResponseEntity.ok(idPersonaSoli);
+        try {
+            int idPersonaSoli = solicitanteImpl.autenticarSolicitante(loginDTO.getCorreo(), loginDTO.getContrasena());
+            return ResponseEntity.ok(idPersonaSoli);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(0);
+        }
     }
 
     @PostMapping("/login/empresa")
     public ResponseEntity<Integer> autenticarDirectorEmpresa(@RequestBody LoginDTO loginDTO){
-        int idDirectorEmpresa = empresaImpl.autenticarDirectorEmpresa(loginDTO.getCorreo(), loginDTO.getContrasena());
-        return ResponseEntity.ok(idDirectorEmpresa);
+        try {
+            int idDirectorEmpresa = empresaImpl.autenticarDirectorEmpresa(loginDTO.getCorreo(), loginDTO.getContrasena());
+            return ResponseEntity.ok(idDirectorEmpresa);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(0);
+        }
+
     }
 
     @PostMapping("/login/admin")
