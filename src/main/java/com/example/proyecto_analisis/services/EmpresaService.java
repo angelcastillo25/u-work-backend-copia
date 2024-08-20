@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.proyecto_analisis.models.Empresa;
+import com.example.proyecto_analisis.models.dto.EmpresaDirectorDTO;
 import com.example.proyecto_analisis.models.dto.VistaPerfilEmpresa_DTO;
 import com.example.proyecto_analisis.repository.EmpresaRepository;
 
@@ -74,4 +75,32 @@ public class EmpresaService {
         return objVista;
     }
     
+    // Obtener empresa para editar
+    public EmpresaDirectorDTO obtenerEmpresaEditar(int idEmpresaP){
+
+        EmpresaDirectorDTO empresaDirectorDTO = new EmpresaDirectorDTO();
+
+        Object[] objEmpresa = empresaRepositorio.obtenerEmpresaEditar(idEmpresaP);
+        Object[] data = (Object[]) objEmpresa[0];
+
+        empresaDirectorDTO.setNombreEmpresa(data[0] != null ? data[0].toString() : null);
+        empresaDirectorDTO.setCorreoEmpresa(data[1] != null ? data[1].toString() : null);
+        empresaDirectorDTO.setContrasena(data[2] != null ? data[2].toString() : null);
+        empresaDirectorDTO.setTelefonoEmpresa(data[3] != null ? data[3].toString() : null);
+        empresaDirectorDTO.setIdDireccionPais(data[4] != null ? data[4].toString() : null);
+        empresaDirectorDTO.setIdIndustria(data[5] != null ? data[5].toString() : null);
+        empresaDirectorDTO.setSitioWeb(data[6] != null ? data[6].toString() : null);
+        empresaDirectorDTO.setPrimerNombre(data[7] != null ? data[7].toString() : null);
+        empresaDirectorDTO.setSegundoNombre(data[8] != null ? data[8].toString() : null);
+        empresaDirectorDTO.setPrimerApellido(data[9] != null ? data[9].toString() : null);
+        empresaDirectorDTO.setSegundoApellido(data[10] != null ? data[10].toString() : null);
+        empresaDirectorDTO.setTelefonoPersona(data[11] != null ? data[11].toString() : null);
+        empresaDirectorDTO.setIdentificacion(data[12] != null ? data[12].toString() : null);
+        empresaDirectorDTO.setIdGenero(data[13] != null ? data[13].toString() : null);
+
+        return empresaDirectorDTO;
+
+    }
+
+
 }

@@ -372,6 +372,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     @Query(value = "select plazas_disponibles from ofertas where id_oferta=:idOfertaP", nativeQuery = true)
     public int obtenerCantidadPlazas(@Param("idOfertaP") int idOfertaP);
 
+    //Obtener ofertas por tipo empleo
     @Query(value = "SELECT o.id_oferta, "+
                     "        DATE_FORMAT(o.fecha_publicacion, '%M %d, %Y') as fechaPublicacion,"+
                     "        o.titulo,"+
