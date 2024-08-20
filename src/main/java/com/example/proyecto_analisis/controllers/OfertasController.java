@@ -167,4 +167,13 @@ public class OfertasController {
         }
     }
 
+    @PostMapping("/finalizar/{idOferta}")
+    public ResponseEntity<String> finalizarOferta(@PathVariable("idOferta") int idOferta) {
+        try {
+            return ResponseEntity.ok(ofertaService.finalizarOferta(idOferta));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Algo ha fallado con la actualizacion de la oferta");
+        }
+    }
+
 }

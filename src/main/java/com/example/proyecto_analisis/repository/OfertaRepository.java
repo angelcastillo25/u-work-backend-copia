@@ -387,4 +387,10 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                     "ORDER BY o.FECHA_PUBLICACION DESC", nativeQuery = true)
     public List<Object[]> obtenerOfertasPorTipoEmpleo(@Param("idTipoEmpleoP") int idTipoEmpleoP);
 
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE ofertas SET ESTADO_OFERTA = 0 where id_oferta=:idOfertaP", nativeQuery = true)
+    public void finalizarOferta(@Param("idOfertaP") int idOfertaP);
+
 }
