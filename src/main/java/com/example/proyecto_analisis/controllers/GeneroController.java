@@ -23,7 +23,11 @@ public class GeneroController {
 
     @GetMapping("/genero/mostrar")
     public List<Genero> mostrarGeneros() {
-        return (List<Genero>) generoImpl.mostrarGeneros();
+        try {
+            return (List<Genero>) generoImpl.mostrarGeneros();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     @PostMapping("/genero/ingresar/{generoP}")

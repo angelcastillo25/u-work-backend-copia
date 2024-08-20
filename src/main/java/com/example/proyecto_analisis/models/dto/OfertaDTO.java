@@ -30,6 +30,8 @@ public class OfertaDTO {
 
     private List<String> cargos;
 
+    private int idEmpresa;
+
     private int vacantes;
 
     private int cantidadAplicantes;

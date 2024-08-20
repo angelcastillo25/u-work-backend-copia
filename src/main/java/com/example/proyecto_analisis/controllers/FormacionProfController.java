@@ -4,6 +4,7 @@ package com.example.proyecto_analisis.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,11 @@ public class FormacionProfController {
 
     @GetMapping("/mostrar")
     public List<FormacionProfesional> mostrarFormacionProf() {
-        return (List<FormacionProfesional>) formProfesionalImpl.mostrarFormacionProfesionals();
+        try {
+            return (List<FormacionProfesional>) formProfesionalImpl.mostrarFormacionProfesionals();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @PostMapping("/ingresar/{formacionProfP}")

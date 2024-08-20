@@ -37,6 +37,7 @@ public class OfertaService {
 
             oferta.setNombreOferta(detalleOferta.get("titulo").toString());
             oferta.setNombreEmpresa(detalleOferta.get("nombre_empresa").toString());
+            oferta.setIdEmpresa((int) detalleOferta.get("id_empresa"));
             oferta.setFechaPublicacion(detalleOferta.get("fecha_publicacion").toString());
             oferta.setFechaExpiracion(detalleOferta.get("fecha_expiracion").toString());
             oferta.setDescripcion(detalleOferta.get("descripcion").toString());
@@ -174,6 +175,7 @@ public class OfertaService {
 
             oferta.setNombreOferta(detalleOferta.get("titulo").toString());
             oferta.setNombreEmpresa(detalleOferta.get("nombre_empresa").toString());
+            oferta.setIdEmpresa((int) detalleOferta.get("id_empresa"));
             oferta.setFechaPublicacion(detalleOferta.get("fecha_publicacion").toString());
             oferta.setFechaExpiracion(detalleOferta.get("fecha_expiracion").toString());
             oferta.setDescripcion(detalleOferta.get("descripcion").toString());

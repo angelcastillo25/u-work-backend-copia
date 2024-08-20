@@ -45,9 +45,13 @@ public class SolicitanteController {
     @GetMapping("/preferencias/{idPersona}")
     public ResponseEntity<PreferenciasUsuarioDTO> obtenerPreferenciasUsuarios(@PathVariable int idPersona){
 
-        PreferenciasUsuarioDTO preferenciasUsuarioDTO = preferenciasImpl.obtenerPerferencias(idPersona);
+        try {
+            PreferenciasUsuarioDTO preferenciasUsuarioDTO = preferenciasImpl.obtenerPerferencias(idPersona);
 
-        return ResponseEntity.ok(preferenciasUsuarioDTO);
+            return ResponseEntity.ok(preferenciasUsuarioDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         
     }
 

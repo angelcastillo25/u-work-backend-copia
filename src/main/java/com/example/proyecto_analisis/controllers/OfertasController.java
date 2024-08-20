@@ -166,4 +166,8 @@ public class OfertasController {
             return ResponseEntity.badRequest().body("Error al obtener las ofertas: "+e.getMessage());
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c78bc10f1861c76ad2c5df8974b5f39e873c3815
 }

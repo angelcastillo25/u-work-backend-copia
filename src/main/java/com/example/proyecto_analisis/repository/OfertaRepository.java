@@ -22,6 +22,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                "A.PLAZAS_DISPONIBLES, " +
                "B.URL_LOGO, " +
                "B.NOMBRE_EMPRESA, " +
+               "B.ID_EMPRESA, " +
                "CONCAT(C.NOMBRE_LUGAR, ', ', D.NOMBRE_LUGAR, ', ', E.NOMBRE_LUGAR) AS LUGAR, " +
                "F.TIPO_EMPLEO, " +
                "G.CONTRATO, " +
@@ -187,6 +188,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     "A.PLAZAS_DISPONIBLES, " +
     "B.URL_LOGO, " +
     "B.NOMBRE_EMPRESA, " +
+    "B.ID_EMPRESA, " +
     "CONCAT(C.NOMBRE_LUGAR, ', ', D.NOMBRE_LUGAR, ', ', E.NOMBRE_LUGAR) AS LUGAR, " +
     "F.TIPO_EMPLEO, " +
     "G.CONTRATO, " +
@@ -371,6 +373,22 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
 
     @Query(value = "select plazas_disponibles from ofertas where id_oferta=:idOfertaP", nativeQuery = true)
     public int obtenerCantidadPlazas(@Param("idOfertaP") int idOfertaP);
+<<<<<<< HEAD
+=======
+
+    //Obtener ofertas por tipo empleo
+    @Query(value = "SELECT o.id_oferta, "+
+                    "        DATE_FORMAT(o.fecha_publicacion, '%M %d, %Y') as fechaPublicacion,"+
+                    "        o.titulo,"+
+                    "        e.nombre_empresa,"+
+                    "        LEFT(o.descripcion, 100) AS descripcion,"+
+                    "        e.url_logo "+
+                    "from ofertas o "+
+                    "INNER JOIN empresa e ON o.ID_EMPRESA = e.ID_EMPRESA "+
+                    "WHERE o.ID_TIPO_EMPLEO = :idTipoEmpleoP "+
+                    "ORDER BY o.FECHA_PUBLICACION DESC", nativeQuery = true)
+    public List<Object[]> obtenerOfertasPorTipoEmpleo(@Param("idTipoEmpleoP") int idTipoEmpleoP);
+>>>>>>> c78bc10f1861c76ad2c5df8974b5f39e873c3815
 
     //Obtener ofertas por tipo empleo
     @Query(value = "SELECT o.id_oferta, "+

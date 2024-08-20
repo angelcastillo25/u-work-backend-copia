@@ -45,8 +45,8 @@ public class EmpresaController {
     @PostMapping("/ingresar")
     public ResponseEntity<EmpresaDirectorDTO> ingresarEmpresaDirector(@RequestBody EmpresaDirectorDTO empresaDirectorDTO){
 
-
-        Persona nvoPersona = new Persona();
+        try {
+            Persona nvoPersona = new Persona();
         nvoPersona.setPrimerNombre(empresaDirectorDTO.getPrimerNombre());
         nvoPersona.setSegundoNombre(empresaDirectorDTO.getSegundoNombre());
         nvoPersona.setPrimerApellido(empresaDirectorDTO.getPrimerApellido());
@@ -71,6 +71,11 @@ public class EmpresaController {
         empresaImpl.ingresarEmpresa(nvoEmpresa);
 
         return ResponseEntity.ok(empresaDirectorDTO);
+        
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        
     }
 
     @GetMapping("/perfil/{idEmpresa}")
