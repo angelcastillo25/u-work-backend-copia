@@ -156,4 +156,15 @@ public class OfertasController {
         }
     }
 
+    @GetMapping("/tipo-empleo/{idTipoEmpleo}")
+    public ResponseEntity<Object> obtenerOfertasPorTipoEmpleo(@PathVariable int idTipoEmpleo){
+        try {
+            List<Map<String,Object>> ofertas = ofertaService.obtenerOfertasPorTipoEmpleo(idTipoEmpleo);
+
+            return ResponseEntity.ok(ofertas);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al obtener las ofertas: "+e.getMessage());
+        }
+    }
+
 }
