@@ -90,15 +90,58 @@ public class EmpresaService {
         empresaDirectorDTO.setIdDireccionPais(data[4] != null ? data[4].toString() : null);
         empresaDirectorDTO.setIdIndustria(data[5] != null ? data[5].toString() : null);
         empresaDirectorDTO.setSitioWeb(data[6] != null ? data[6].toString() : null);
-        empresaDirectorDTO.setPrimerNombre(data[7] != null ? data[7].toString() : null);
-        empresaDirectorDTO.setSegundoNombre(data[8] != null ? data[8].toString() : null);
-        empresaDirectorDTO.setPrimerApellido(data[9] != null ? data[9].toString() : null);
-        empresaDirectorDTO.setSegundoApellido(data[10] != null ? data[10].toString() : null);
-        empresaDirectorDTO.setTelefonoPersona(data[11] != null ? data[11].toString() : null);
-        empresaDirectorDTO.setIdentificacion(data[12] != null ? data[12].toString() : null);
-        empresaDirectorDTO.setIdGenero(data[13] != null ? data[13].toString() : null);
+        empresaDirectorDTO.setDescripcion(data[7] != null ? data[7].toString() : null);
+        empresaDirectorDTO.setPrimerNombre(data[8] != null ? data[8].toString() : null);
+        empresaDirectorDTO.setSegundoNombre(data[9] != null ? data[9].toString() : null);
+        empresaDirectorDTO.setPrimerApellido(data[10] != null ? data[10].toString() : null);
+        empresaDirectorDTO.setSegundoApellido(data[11] != null ? data[11].toString() : null);
+        empresaDirectorDTO.setTelefonoPersona(data[12] != null ? data[12].toString() : null);
+        empresaDirectorDTO.setIdentificacion(data[13] != null ? data[13].toString() : null);
+        empresaDirectorDTO.setIdGenero(data[14] != null ? data[14].toString() : null);
 
         return empresaDirectorDTO;
+
+    }
+
+    // Actualizar empresa
+    public void actualizarEmpresa(int idEmpresaP, EmpresaDirectorDTO empresaDirectorDTO){
+
+        
+            String nombreEmpresa = empresaDirectorDTO.getNombreEmpresa();
+            String correoEmpresa = empresaDirectorDTO.getCorreoEmpresa();
+            String contrasenaEmpresa = empresaDirectorDTO.getContrasena();
+            String telefonoEmpresa = empresaDirectorDTO.getTelefonoEmpresa();
+            int idDirenccion = Integer.parseInt(empresaDirectorDTO.getIdDireccionPais());
+            int idIndustria = Integer.parseInt(empresaDirectorDTO.getIdIndustria());
+            String sitioWeb = empresaDirectorDTO.getSitioWeb();
+            String descripcion = empresaDirectorDTO.getDescripcion();
+
+            empresaRepositorio.actualizarEmpresa(
+                nombreEmpresa,
+                correoEmpresa,
+                contrasenaEmpresa,
+                telefonoEmpresa,
+                idDirenccion,
+                idIndustria,
+                sitioWeb,
+                descripcion,
+                idEmpresaP
+            );
+
+
+            //director
+            int idDirectorP = empresaRepositorio.obtenerIdDirectoEmpresa(idEmpresaP);
+
+            String primerNombre = empresaDirectorDTO.getPrimerNombre();
+            String segundoNombre = empresaDirectorDTO.getSegundoNombre();
+            String primerApellido = empresaDirectorDTO.getPrimerApellido();
+            String segundoApellido = empresaDirectorDTO.getSegundoApellido();
+            int telefono = Integer.parseInt(empresaDirectorDTO.getTelefonoPersona());
+            String identificacion = empresaDirectorDTO.getIdentificacion();
+            int idGenero = Integer.parseInt(empresaDirectorDTO.getIdGenero());
+
+            empresaRepositorio.actualizarDirector(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, identificacion, idGenero, idDirectorP);
+        
 
     }
 

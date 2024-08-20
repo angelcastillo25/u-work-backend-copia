@@ -440,4 +440,14 @@ public class OfertaService {
 
         return ofertas;
     }
+
+    //Finalizar o cancelar oferta
+    public String finalizarOferta(int idOfertaP){
+        try {
+            ofertaRepository.finalizarOferta(idOfertaP);
+            return "Se ha finalizado esta oferta";
+        } catch (Exception e) {
+            return "Algo ha fallado en la cancelacion de la oferta";
+        }
+    }
 }

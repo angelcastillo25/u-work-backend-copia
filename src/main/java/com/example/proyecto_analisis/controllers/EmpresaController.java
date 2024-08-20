@@ -67,6 +67,7 @@ public class EmpresaController {
         nvoEmpresa.setIdDireccion(Integer.parseInt(empresaDirectorDTO.getIdDireccionPais()));
         nvoEmpresa.setIdIndustria(Integer.parseInt(empresaDirectorDTO.getIdIndustria()));
         nvoEmpresa.setIdDirector(idNvoPersona);
+        nvoEmpresa.setDescripcion(empresaDirectorDTO.getDescripcion());
 
         empresaImpl.ingresarEmpresa(nvoEmpresa);
 
@@ -140,6 +141,18 @@ public class EmpresaController {
             return ResponseEntity.ok(empresaDirectorDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al obtener empresa: "+e.getMessage());
+        }
+    }
+
+    @PutMapping("/actualizar/{idEmpresaP}")
+    public ResponseEntity<Object> actualizarEmpresa(@PathVariable int idEmpresaP, @RequestBody EmpresaDirectorDTO empresaDirectorDTO){
+        try {
+            
+            empresaImpl.actualizarEmpresa(idEmpresaP, empresaDirectorDTO);
+
+            return ResponseEntity.ok("Empresa actualizada correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al actualizar: "+e.getMessage());
         }
     }
 }
