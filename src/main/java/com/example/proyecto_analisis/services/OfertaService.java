@@ -418,4 +418,24 @@ public class OfertaService {
         solicitanteOferta.put("candidatos", candidatos);
         return solicitanteOferta;
     }
+
+    //Obtener ofertas por tipo empleo
+    public List<Map<String,Object>> obtenerOfertasPorTipoEmpleo(int idTipoEmpleoP){
+
+        List<Object[]> objOfertas = ofertaRepository.obtenerOfertasPorTipoEmpleo(idTipoEmpleoP);
+
+        List<Map<String,Object>> ofertas = objOfertas.stream()
+            .map(obj -> {
+                Map<String,Object> map = new LinkedHashMap<>();
+                    map.put("idOferta", obj[0]);
+                    map.put("fechaPublicacionOferta", obj[1]);
+                    map.put("tituloOferta", obj[2]);
+                    map.put("nombreEmpresa", obj[3]);
+                    map.put("descripcion", obj[4]);
+                    map.put("url_logo", obj[5]);
+                    return map;
+            }).collect(Collectors.toList());
+
+        return ofertas;
+    }
 }

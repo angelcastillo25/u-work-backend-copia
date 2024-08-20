@@ -370,6 +370,17 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     public Map<String,Object>obtenerLugarCompletoOferta(@Param("idOfertaP") int idOfertaP);
 
     @Query(value = "select plazas_disponibles from ofertas where id_oferta=:idOfertaP", nativeQuery = true)
-public int obtenerCantidadPlazas(@Param("idOfertaP") int idOfertaP);
+    public int obtenerCantidadPlazas(@Param("idOfertaP") int idOfertaP);
 
+    @Query(value = "SELECT o.id_oferta, "+
+                    "        DATE_FORMAT(o.fecha_publicacion, '%M %d, %Y') as fechaPublicacion,"+
+                    "        o.titulo,"+
+                    "        e.nombre_empresa,"+
+                    "        LEFT(o.descripcion, 100) AS descripcion,"+
+                    "        e.url_logo "+
+                    "from ofertas o "+
+                    "INNER JOIN empresa e ON o.ID_EMPRESA = e.ID_EMPRESA "+
+                    "WHERE o.ID_TIPO_EMPLEO = :idTipoEmpleoP "+
+                    "ORDER BY o.FECHA_PUBLICACION DESC", nativeQuery = true)
+    public List<Object[]> obtenerOfertasPorTipoEmpleo(@Param("idTipoEmpleoP") int idTipoEmpleoP);
 }
