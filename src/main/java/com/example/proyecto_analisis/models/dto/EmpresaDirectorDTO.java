@@ -25,6 +25,8 @@ public class EmpresaDirectorDTO {
 
     private String sitioWeb;
 
+    private String descripcion;
+
     //Datos director
     private String primerNombre;
 

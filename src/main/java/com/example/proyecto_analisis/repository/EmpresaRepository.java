@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.proyecto_analisis.models.Empresa;
+
+import jakarta.transaction.Transactional;
 
 public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
     @Query("SELECT e FROM Empresa e WHERE correo = ?1 AND contrasena = ?2")
@@ -54,6 +57,7 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
                     "        e.ID_DIRECCION,"+
                     "        e.ID_INDUSTRIA,"+
                     "        e.SITIO_WEB,"+
+                    "        e.descripcion,"+
                     "        p.PRIMER_NOMBRE,"+
                     "        p.SEGUNDO_NOMBRE,"+
                     "        p.PRIMER_APELLIDO,"+
@@ -65,4 +69,52 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
                     "INNER JOIN personas p on e.ID_DIRECTOR = p.ID_PERSONA "+
                     "WHERE e.ID_EMPRESA = :idEmpresaP;", nativeQuery = true)
     public Object[] obtenerEmpresaEditar(@Param("idEmpresaP") int idEmpresaP);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `empresa` SET "+
+                    "    `NOMBRE_EMPRESA`=:nombreEmpresaP,"+
+                    "    `CORREO`=:correoP,"+
+                    "    `CONTRASENA`=:contrasenaP,"+
+                    "    `TELEFONO`=:telefonoP,"+
+                    "    `ID_DIRECCION`=:idDirenccionP,"+
+                    "    `ID_INDUSTRIA`=:idIndustriaP,"+
+                    "    `SITIO_WEB`=:sitioWebP,"+
+                    "    `DESCRIPCION` =:descripcionP "+
+                    "WHERE id_empresa = :idEmpresaP;", nativeQuery = true)
+    public void actualizarEmpresa(
+        @Param("nombreEmpresaP") String nombreEmpresaP,
+        @Param("correoP") String correoP,
+        @Param("contrasenaP") String contrasenaP,
+        @Param("telefonoP") String telefonoP,
+        @Param("idDirenccionP") int idDirenccionP,
+        @Param("idIndustriaP") int idIndustriaP,
+        @Param("sitioWebP") String sitioWebP,
+        @Param("descripcionP") String descripcionP,
+        @Param("idEmpresaP") int idEmpresaP
+    );
+
+    @Query(value = "SELECT ID_DIRECTOR FROM empresa where id_empresa = :idEmpresaP;", nativeQuery = true)
+    public int obtenerIdDirectoEmpresa(@Param("idEmpresaP") int idEmpresaP);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE personas SET PRIMER_NOMBRE=:primerNombreP,"+
+                    "                    SEGUNDO_NOMBRE=:segundoNombreP,"+
+                    "                    PRIMER_APELLIDO=:primerApellidoP,"+
+                    "                    SEGUNDO_APELLIDO=:segundoApellidoP,"+
+                    "                    TELEFONO=:telefonoP,"+
+                    "                    IDENTIFICACION=:identificacionP,"+
+                    "                    GENERO_ID_GENERO=:idGeneroP "+
+                    "WHERE ID_PERSONA = :idPersonaP;", nativeQuery = true)
+    public void actualizarDirector(
+        @Param("primerNombreP") String primerNombreP,
+        @Param("segundoNombreP") String segundoNombreP,
+        @Param("primerApellidoP") String primerApellidoP,
+        @Param("segundoApellidoP") String segundoApellidoP,
+        @Param("telefonoP") int telefonoP,
+        @Param("identificacionP") String identificacionP,
+        @Param("idGeneroP") int idGeneroP,
+        @Param("idPersonaP") int idPersonaP
+    );
 }
