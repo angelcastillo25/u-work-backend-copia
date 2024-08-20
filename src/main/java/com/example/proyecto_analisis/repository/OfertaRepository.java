@@ -22,6 +22,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                "A.PLAZAS_DISPONIBLES, " +
                "B.URL_LOGO, " +
                "B.NOMBRE_EMPRESA, " +
+               "B.ID_EMPRESA, " +
                "CONCAT(C.NOMBRE_LUGAR, ', ', D.NOMBRE_LUGAR, ', ', E.NOMBRE_LUGAR) AS LUGAR, " +
                "F.TIPO_EMPLEO, " +
                "G.CONTRATO, " +
@@ -187,6 +188,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     "A.PLAZAS_DISPONIBLES, " +
     "B.URL_LOGO, " +
     "B.NOMBRE_EMPRESA, " +
+    "B.ID_EMPRESA, " +
     "CONCAT(C.NOMBRE_LUGAR, ', ', D.NOMBRE_LUGAR, ', ', E.NOMBRE_LUGAR) AS LUGAR, " +
     "F.TIPO_EMPLEO, " +
     "G.CONTRATO, " +
