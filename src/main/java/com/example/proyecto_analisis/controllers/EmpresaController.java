@@ -132,4 +132,14 @@ public class EmpresaController {
         }
     }
     
+    // obtener empresa editar
+    @GetMapping("/edit/{idEmpresa}")
+    public ResponseEntity<Object> obtenerEmpresaEditar(@PathVariable int idEmpresa){
+        try {
+            EmpresaDirectorDTO empresaDirectorDTO = empresaImpl.obtenerEmpresaEditar(idEmpresa);
+            return ResponseEntity.ok(empresaDirectorDTO);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al obtener empresa: "+e.getMessage());
+        }
+    }
 }

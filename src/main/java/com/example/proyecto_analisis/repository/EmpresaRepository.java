@@ -45,4 +45,24 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
         "ON (A.ID_EMPRESA = C.ID_EMPRESA)\n" + //
         "WHERE C.ID_EMPRESA = :idEmpresa", nativeQuery = true)
     public  Map<String, Object> obtenerInfoEmpresa(@Param("idEmpresa") int idEmpresa);
+
+    // Obtener informacion de empresa para editar
+    @Query(value = "SELECT e.nombre_empresa,"+
+                    "        e.CORREO,"+
+                    "        e.CONTRASENA,"+
+                    "        e.TELEFONO as telefonoEmpresa,"+
+                    "        e.ID_DIRECCION,"+
+                    "        e.ID_INDUSTRIA,"+
+                    "        e.SITIO_WEB,"+
+                    "        p.PRIMER_NOMBRE,"+
+                    "        p.SEGUNDO_NOMBRE,"+
+                    "        p.PRIMER_APELLIDO,"+
+                    "        p.SEGUNDO_APELLIDO,"+
+                    "        p.TELEFONO as telefonoDirector,"+
+                    "        p.IDENTIFICACION,"+
+                    "        p.GENERO_ID_GENERO "+
+                    "from empresa e "+
+                    "INNER JOIN personas p on e.ID_DIRECTOR = p.ID_PERSONA "+
+                    "WHERE e.ID_EMPRESA = :idEmpresaP;", nativeQuery = true)
+    public Object[] obtenerEmpresaEditar(@Param("idEmpresaP") int idEmpresaP);
 }
