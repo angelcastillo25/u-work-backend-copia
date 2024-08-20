@@ -44,7 +44,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Integer>{
                     "    DATE_FORMAT(ha.FECHA_EGRESO, '%d %b, %Y') AS fechaExpedicion,"+
                     "    na.nivel_academico "+
                     "from historial_academico ha "+
-                    "INNER JOIN NIVEL_ACADEMICO na on ha.ID_NIVEL_ACADEMICO = na.ID_NIVEL_ACADEMICO "+
+                    "INNER JOIN nivel_academico na on ha.ID_NIVEL_ACADEMICO = na.ID_NIVEL_ACADEMICO "+
                     "WHERE ha.ID_PERSONA = :idPersona;",
             nativeQuery = true)
     public List<Object[]> obtenerFormacionPA(@Param("idPersona") int idPersona);
