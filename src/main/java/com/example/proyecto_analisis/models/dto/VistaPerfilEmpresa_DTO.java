@@ -22,7 +22,7 @@ public class VistaPerfilEmpresa_DTO {
 
     private String nombreIndustria;
 
-    private Long ofertasPublicadas;
+    private int ofertasPublicadas;
     
     private String pais;
 

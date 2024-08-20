@@ -37,19 +37,20 @@ public class EmpresaService {
 
         VistaPerfilEmpresa_DTO objVista = new VistaPerfilEmpresa_DTO();
     
+        int ofertasPublicadas = empresaRepositorio.obtenerOfertasPublicadas(idEmpresa);
+
         Map<String, Object> objEmpresaInfo = empresaRepositorio.obtenerInfoEmpresa(idEmpresa);
     
         objVista.setIdEmpresa(idEmpresa);
-        objVista.setUrlFotoEmpresa(objEmpresaInfo.get("URL_LOGO").toString());
         objVista.setNombreEmpresa(objEmpresaInfo.get("NOMBRE_EMPRESA").toString());
         objVista.setNombreIndustria(objEmpresaInfo.get("INDUSTRIA").toString());
-        objVista.setOfertasPublicadas(Long.parseLong(objEmpresaInfo.get("OFERTAS_PUBLICADAS").toString()));
         objVista.setPais(objEmpresaInfo.get("NOMBRE_LUGAR").toString());
         objVista.setDescripcion(objEmpresaInfo.get("DESCRIPCION").toString());
         objVista.setTelefono(objEmpresaInfo.get("TELEFONO").toString());
         objVista.setCorreo(objEmpresaInfo.get("CORREO").toString());
         objVista.setSitioWeb(objEmpresaInfo.get("SITIO_WEB").toString());
-    
+        objVista.setOfertasPublicadas(ofertasPublicadas);
+
         List<Object[]> directorData = empresaRepositorio.obtenerInfoDirector(idEmpresa);
         List<Map<String, Object>> directorList = directorData.stream()
             .map(obj -> {

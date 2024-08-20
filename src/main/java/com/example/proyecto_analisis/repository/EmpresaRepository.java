@@ -33,7 +33,6 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
         "\t\tA.URL_LOGO, \n" + //
         "        A.NOMBRE_EMPRESA, \n" + //
         "        B.INDUSTRIA, \n" + //
-        "        COUNT(C.ID_EMPRESA) AS OFERTAS_PUBLICADAS,\n" + //
         "        L.NOMBRE_LUGAR,\n" + //
         "        A.DESCRIPCION,\n" + //
         "        A.TELEFONO,\n" + //
@@ -44,10 +43,13 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
         "ON (B.ID_INDUSTRIA = A.ID_INDUSTRIA)\n" + //
         "INNER JOIN lugares AS L\n" + //
         "ON (L.ID_LUGAR = A.ID_DIRECCION)\n" + //
-        "INNER JOIN ofertas AS C\n" + //
-        "ON (A.ID_EMPRESA = C.ID_EMPRESA)\n" + //
-        "WHERE C.ID_EMPRESA = :idEmpresa", nativeQuery = true)
+        "WHERE A.ID_EMPRESA = :idEmpresa", nativeQuery = true)
     public  Map<String, Object> obtenerInfoEmpresa(@Param("idEmpresa") int idEmpresa);
+
+    @Query(value = "SELECT COUNT(*) FROM ofertas \r\n" + //
+                "INNER JOIN empresa ON ofertas.ID_EMPRESA = empresa.ID_EMPRESA\r\n" + //
+                "WHERE empresa.ID_EMPRESA = :idEmpresaP;", nativeQuery = true)
+    public int obtenerOfertasPublicadas(@Param("idEmpresaP") int idEmpresaP);
 
     // Obtener informacion de empresa para editar
     @Query(value = "SELECT e.nombre_empresa,"+
