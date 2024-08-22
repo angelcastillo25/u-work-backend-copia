@@ -100,75 +100,69 @@ public interface SolicitanteRepository extends JpaRepository<Solicitante, Intege
     public void cambiarEstadoNotiSolic(@Param("idNotifSolicitanteP") int idNotifSolicitanteP);
 
 
-        @Query(value = "(\n" + //
-        "SELECT \r\n" + //
-                        "    A.ID_OFERTA, \r\n" + //
-                        "    DATE_FORMAT(A.FECHA_PUBLICACION, '%M %d, %Y') AS FECHA_PUBLICACION, \r\n" + //
-                        "    A.TITULO, \r\n" + //
-                        "    E.NOMBRE_EMPRESA, \r\n" + //
-                        "    A.DESCRIPCION, \r\n" + //
-                        "    E.URL_LOGO\r\n" + //
-                        "FROM \r\n" + //
-                        "    ofertas AS A\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    requisitos_academicos AS B ON A.ID_OFERTA = B.ID_OFERTA\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    formacion_profesional AS C ON B.ID_FORMACION_PROFESIONAL = C.ID_FORMACION_PROFESIONAL\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    empresa AS E ON E.ID_EMPRESA = A.ID_EMPRESA\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    historial_academico AS D ON C.ID_FORMACION_PROFESIONAL = D.ID_FORMACION_PROFESIONAL\r\n" + //
-                        "WHERE \r\n" + //
-                        "    D.ID_PERSONA = :idSolicitante\r\n" + //
-                        "    AND A.ESTADO_OFERTA = 1\r\n" + //
-                        "\r\n" + //
-                        "UNION\r\n" + //
-                        "\r\n" + //
-                        "SELECT \r\n" + //
-                        "    A.ID_OFERTA, \r\n" + //
-                        "    DATE_FORMAT(A.FECHA_PUBLICACION, '%M %d, %Y') AS FECHA_PUBLICACION, \r\n" + //
-                        "    A.TITULO, \r\n" + //
-                        "    E.NOMBRE_EMPRESA, \r\n" + //
-                        "    A.DESCRIPCION, \r\n" + //
-                        "    E.URL_LOGO\r\n" + //
-                        "FROM \r\n" + //
-                        "    ofertas AS A\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    empresa AS E ON E.ID_EMPRESA = A.ID_EMPRESA\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    requisitos_laborales AS B ON A.ID_OFERTA = B.ID_OFERTA\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    puestos AS C ON B.ID_PUESTO = C.ID_PUESTO\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    experiencia_laboral AS D ON C.ID_PUESTO = D.ID_PUESTO\r\n" + //
-                        "WHERE \r\n" + //
-                        "    D.ID_PERSONA = :idSolicitante\r\n" + //
-                        "    AND A.ESTADO_OFERTA = 1\r\n" + //
-                        "\r\n" + //
-                        "UNION\r\n" + //
-                        "\r\n" + //
-                        "SELECT \r\n" + //
-                        "    A.ID_OFERTA, \r\n" + //
-                        "    DATE_FORMAT(A.FECHA_PUBLICACION, '%M %d, %Y') AS FECHA_PUBLICACION, \r\n" + //
-                        "    A.TITULO, \r\n" + //
-                        "    E.NOMBRE_EMPRESA, \r\n" + //
-                        "    A.DESCRIPCION, \r\n" + //
-                        "    E.URL_LOGO\r\n" + //
-                        "FROM \r\n" + //
-                        "    ofertas AS A\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    empresa AS E ON E.ID_EMPRESA = A.ID_EMPRESA\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    nivel_academico AS B ON A.ID_NIVEL_ACADEMICO = B.ID_NIVEL_ACADEMICO\r\n" + //
-                        "INNER JOIN \r\n" + //
-                        "    historial_academico AS C ON B.ID_NIVEL_ACADEMICO = C.ID_NIVEL_ACADEMICO\r\n" + //
-                        "WHERE \r\n" + //
-                        "    C.ID_PERSONA = :idSolicitante\r\n" + //
-                        "    AND A.ESTADO_OFERTA = 1\r\n" + //
-                        "\r\n" + //
-                        "LIMIT 20 OFFSET 0;\r\n" + //
-                        "",
-    nativeQuery = true)
+    @Query(value = "SELECT " +
+    "    A.ID_OFERTA, " +
+    "    DATE_FORMAT(A.FECHA_PUBLICACION, '%M %d, %Y') AS FECHA_PUBLICACION, " +
+    "    A.TITULO, " +
+    "    E.NOMBRE_EMPRESA, " +
+    "    A.DESCRIPCION, " +
+    "    E.URL_LOGO " +
+    "FROM " +
+    "    ofertas AS A " +
+    "INNER JOIN " +
+    "    requisitos_academicos AS B ON A.ID_OFERTA = B.ID_OFERTA " +
+    "INNER JOIN " +
+    "    formacion_profesional AS C ON B.ID_FORMACION_PROFESIONAL = C.ID_FORMACION_PROFESIONAL " +
+    "INNER JOIN " +
+    "    empresa AS E ON E.ID_EMPRESA = A.ID_EMPRESA " +
+    "INNER JOIN " +
+    "    historial_academico AS D ON C.ID_FORMACION_PROFESIONAL = D.ID_FORMACION_PROFESIONAL " +
+    "WHERE " +
+    "    D.ID_PERSONA = :idSolicitante " +
+    "    AND A.ESTADO_OFERTA = 1 " +
+    "UNION " +
+    "SELECT " +
+    "    A.ID_OFERTA, " +
+    "    DATE_FORMAT(A.FECHA_PUBLICACION, '%M %d, %Y') AS FECHA_PUBLICACION, " +
+    "    A.TITULO, " +
+    "    E.NOMBRE_EMPRESA, " +
+    "    A.DESCRIPCION, " +
+    "    E.URL_LOGO " +
+    "FROM " +
+    "    ofertas AS A " +
+    "INNER JOIN " +
+    "    empresa AS E ON E.ID_EMPRESA = A.ID_EMPRESA " +
+    "INNER JOIN " +
+    "    requisitos_laborales AS B ON A.ID_OFERTA = B.ID_OFERTA " +
+    "INNER JOIN " +
+    "    puestos AS C ON B.ID_PUESTO = C.ID_PUESTO " +
+    "INNER JOIN " +
+    "    experiencia_laboral AS D ON C.ID_PUESTO = D.ID_PUESTO " +
+    "WHERE " +
+    "    D.ID_PERSONA = :idSolicitante " +
+    "    AND A.ESTADO_OFERTA = 1 " +
+    "UNION " +
+    "SELECT " +
+    "    A.ID_OFERTA, " +
+    "    DATE_FORMAT(A.FECHA_PUBLICACION, '%M %d, %Y') AS FECHA_PUBLICACION, " +
+    "    A.TITULO, " +
+    "    E.NOMBRE_EMPRESA, " +
+    "    A.DESCRIPCION, " +
+    "    E.URL_LOGO " +
+    "FROM " +
+    "    ofertas AS A " +
+    "INNER JOIN " +
+    "    empresa AS E ON E.ID_EMPRESA = A.ID_EMPRESA " +
+    "INNER JOIN " +
+    "    nivel_academico AS B ON A.ID_NIVEL_ACADEMICO = B.ID_NIVEL_ACADEMICO " +
+    "INNER JOIN " +
+    "    historial_academico AS C ON B.ID_NIVEL_ACADEMICO = C.ID_NIVEL_ACADEMICO " +
+    "WHERE " +
+    "    C.ID_PERSONA = :idSolicitante " +
+    "    AND A.ESTADO_OFERTA = 1 " +
+    "LIMIT 20 OFFSET 0;",
+nativeQuery = true)
+
     public List<Object[]> obtenerOfertasFeedUsuario(@Param("idSolicitante") int idPersona);
 
 
