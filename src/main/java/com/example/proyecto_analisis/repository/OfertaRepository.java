@@ -375,16 +375,23 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     public int obtenerCantidadPlazas(@Param("idOfertaP") int idOfertaP);
 
     //Obtener ofertas por tipo empleo
-    @Query(value = "SELECT o.id_oferta, "+
-                    "        DATE_FORMAT(o.fecha_publicacion, '%M %d, %Y') as fechaPublicacion,"+
-                    "        o.titulo,"+
-                    "        e.nombre_empresa,"+
-                    "        LEFT(o.descripcion, 100) AS descripcion,"+
-                    "        e.url_logo "+
-                    "from ofertas o "+
-                    "INNER JOIN empresa e ON o.ID_EMPRESA = e.ID_EMPRESA "+
-                    "WHERE o.ID_TIPO_EMPLEO = :idTipoEmpleoP "+
-                    "ORDER BY o.FECHA_PUBLICACION DESC", nativeQuery = true)
+    @Query(value = "SELECT \r\n" + //
+                "    o.id_oferta, \r\n" + //
+                "    DATE_FORMAT(o.fecha_publicacion, '%M %d, %Y') AS fechaPublicacion,\r\n" + //
+                "    o.titulo,\r\n" + //
+                "    e.nombre_empresa,\r\n" + //
+                "    LEFT(o.descripcion, 100) AS descripcion,\r\n" + //
+                "    e.url_logo \r\n" + //
+                "FROM \r\n" + //
+                "    ofertas o\r\n" + //
+                "INNER JOIN \r\n" + //
+                "    empresa e ON o.ID_EMPRESA = e.ID_EMPRESA\r\n" + //
+                "WHERE \r\n" + //
+                "    o.ID_TIPO_EMPLEO = :idTipoEmpleoP\r\n" + //
+                "    AND o.ESTADO_OFERTA = 1\r\n" + //
+                "ORDER BY \r\n" + //
+                "    o.FECHA_PUBLICACION DESC;\r\n" + //
+                "", nativeQuery = true)
     public List<Object[]> obtenerOfertasPorTipoEmpleo(@Param("idTipoEmpleoP") int idTipoEmpleoP);
 
 
