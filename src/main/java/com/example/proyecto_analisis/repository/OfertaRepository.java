@@ -311,8 +311,11 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
                     "WHERE ID_OFERTA = :idOfertaP", nativeQuery = true)
     public Object[] obtenerDetalleOfertaAplicante(@Param("idOfertaP") int idOfertaP);
 
-    @Query(value = "select count(1) as cantidad_aplicando from solicitudes where ID_OFERTA=:idOfertaP and ID_ESTADO_SOLICITUD=2",nativeQuery = true)
+    @Query(value = "select count(1) as cantidad_aplicando from solicitudes where ID_OFERTA=:idOfertaP and ID_ESTADO_SOLICITUD=1",nativeQuery = true)
     public int obtenerCantidadAplicando(@Param("idOfertaP") int idOfertaP);
+
+    @Query(value = "select count(1) as cantidad_aplicando from solicitudes where ID_OFERTA=:idOfertaP and ID_ESTADO_SOLICITUD=2",nativeQuery = true)
+    public int obtenerCantidadReclutados(@Param("idOfertaP") int idOfertaP);
 
     @Query(value = "select count(1) as cantidad_seleccionados from solicitudes where ID_OFERTA=:idOfertaP and ID_ESTADO_SOLICITUD=3", nativeQuery = true)
     public int obtenerCantidadSeleccionados(@Param("idOfertaP") int idOfertaP);

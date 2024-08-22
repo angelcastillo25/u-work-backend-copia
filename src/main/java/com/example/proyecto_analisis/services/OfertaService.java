@@ -386,6 +386,7 @@ public class OfertaService {
             }).collect(Collectors.toList());
 
         int cantidadAplicando = ofertaRepository.obtenerCantidadAplicando(idOfertaP);
+        int cantidadReclutados = ofertaRepository.obtenerCantidadReclutados(idOfertaP);
         int cantidadSeleccionados = ofertaRepository.obtenerCantidadSeleccionados(idOfertaP);
         int cantidadPlazas = ofertaRepository.obtenerCantidadPlazas(idOfertaP);
 
@@ -414,6 +415,7 @@ public class OfertaService {
         solicitanteOferta.put("fechaPublicacion", data[2]);
         solicitanteOferta.put("estadoOferta", data[4]);
         solicitanteOferta.put("cantidadAplicando", cantidadAplicando);
+        solicitanteOferta.put("cantidadReclutados", cantidadReclutados);
         solicitanteOferta.put("cantidadSeleccionados", cantidadSeleccionados);
 
         solicitanteOferta.put("cantidadPlazas", cantidadPlazas);
