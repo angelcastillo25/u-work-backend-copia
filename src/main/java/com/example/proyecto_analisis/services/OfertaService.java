@@ -1,5 +1,6 @@
 package com.example.proyecto_analisis.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -106,7 +107,7 @@ public class OfertaService {
                 Map<String,Object> map = new LinkedHashMap<>();
                 map.put("nombreEmpresa", obj[0]);
                 map.put("cantidadOfertasActivas", obj[1]);
-                map.put("promedioSolicitantesOfertas", obj[2]);
+                map.put("promedioSolicitantesOfertas", obj[2].toString());
                 map.put("fotoEmpresa", obj[3]);
                 return map;
             }).collect(Collectors.toList());
@@ -180,7 +181,7 @@ public class OfertaService {
             oferta.setFechaExpiracion(detalleOferta.get("fecha_expiracion").toString());
             oferta.setDescripcion(detalleOferta.get("descripcion").toString());
             oferta.setVacantes((int) detalleOferta.get("plazas_disponibles"));
-            oferta.setUrlEmpresa(detalleOferta.get("url_logo").toString());
+            oferta.setUrlEmpresa(detalleOferta.get("url_logo")!=null?detalleOferta.get("url_logo").toString():null);
             oferta.setLugar(detalleOferta.get("lugar").toString());
             oferta.setTipoEmpleo(detalleOferta.get("tipo_empleo").toString());
             oferta.setTipoContratacion(detalleOferta.get("contrato").toString());

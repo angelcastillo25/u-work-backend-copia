@@ -96,11 +96,11 @@ public class OfertasController {
         }
     }
     @GetMapping("/detalleEmpresa/{idOferta}")
-    public ResponseEntity<OfertaDTO> obtenerDetalleOfertaEmpresa(@PathVariable int idOferta) {
+    public ResponseEntity<Object> obtenerDetalleOfertaEmpresa(@PathVariable int idOferta) {
         try {
             return ResponseEntity.ok(ofertaService.obtenerDetalleOfertaEmpresa(idOferta));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.badRequest().body("Error al traer oferta: " + e.getMessage());
         }
     }
     

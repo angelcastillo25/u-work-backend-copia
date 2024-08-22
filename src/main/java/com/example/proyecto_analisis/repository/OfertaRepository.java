@@ -89,7 +89,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     @Query(value = "SELECT " +
              "    CAST(e.NOMBRE_EMPRESA AS CHAR) AS NOMBRE_EMPRESA, " +
              "    CAST(COUNT(o.ID_OFERTA) AS CHAR) AS ofertasActivas, " +
-             "    CAST(AVG(sub.solicitantes_por_oferta) AS CHAR) AS promedio_solicitantes, " +
+             "    ROUND(AVG(sub.solicitantes_por_oferta)) AS promedio_solicitantes, " +
              "    e.URL_LOGO " +
              "FROM " +
              "    empresa e " +
@@ -110,7 +110,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     public List<Object[]> obtenerEstadisticasEmpresa(@Param("idEmpresaP") int idEmpresaP);
 
     //Promedio hombres
-    @Query(value = "SELECT (COUNT(CASE WHEN p.GENERO_ID_GENERO = 1 THEN 1 END) * 100.0 / COUNT(*)) AS porcentajeHombres \r\n" + //
+    @Query(value = "SELECT IFNULL((COUNT(CASE WHEN p.GENERO_ID_GENERO = 1 THEN 1 END) * 100.0 / COUNT(*)),0) AS porcentajeHombres \r\n" + //
                 "FROM ofertas ofer \r\n" + //
                 "INNER JOIN solicitudes s ON ofer.ID_OFERTA = s.ID_OFERTA \r\n" + //
                 "INNER JOIN solicitantes soli ON s.ID_SOLICITANTE = soli.ID_PERSONA \r\n" + //

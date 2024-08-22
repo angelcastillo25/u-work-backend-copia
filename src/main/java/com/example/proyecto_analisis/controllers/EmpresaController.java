@@ -80,19 +80,23 @@ public class EmpresaController {
     }
 
     @GetMapping("/perfil/{idEmpresa}")
-    public ResponseEntity<VistaPerfilEmpresa_DTO> obtenerVistaPerfilEmpresa(@PathVariable int idEmpresa){
-        VistaPerfilEmpresa_DTO vista = empresaImpl.obtenerVistaPerfilEmpresa(idEmpresa);
-
-        return ResponseEntity.ok(vista);
+    public ResponseEntity<Object> obtenerVistaPerfilEmpresa(@PathVariable int idEmpresa){
+        try {
+            VistaPerfilEmpresa_DTO vista = empresaImpl.obtenerVistaPerfilEmpresa(idEmpresa);
+            return ResponseEntity.ok(vista);    
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al obtener notificacion: "+ e.getMessage());
+        }
+        
     }
 
     @GetMapping("/home/{idEmpresa}")
-    public ResponseEntity<OfertaEmpresaHomeDTO> homeEmpresa(@PathVariable int idEmpresa){
+    public ResponseEntity<Object> homeEmpresa(@PathVariable int idEmpresa){
         try {
             OfertaEmpresaHomeDTO home = ofertaService.obtenerHomeEmpresa(idEmpresa);
             return ResponseEntity.ok(home);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("Error al obtener notificacion: "+ e.getMessage());
         }
     }
 

@@ -42,7 +42,7 @@ public class EmpresaService {
         Map<String, Object> objEmpresaInfo = empresaRepositorio.obtenerInfoEmpresa(idEmpresa);
     
         objVista.setIdEmpresa(idEmpresa);
-        objVista.setUrlFotoEmpresa(objEmpresaInfo.get("URL_LOGO").toString());
+        objVista.setUrlFotoEmpresa(objEmpresaInfo.get("URL_LOGO")!=null ? objEmpresaInfo.get("URL_LOGO").toString() : null);
         objVista.setNombreEmpresa(objEmpresaInfo.get("NOMBRE_EMPRESA").toString());
         objVista.setNombreIndustria(objEmpresaInfo.get("INDUSTRIA").toString());
         objVista.setPais(objEmpresaInfo.get("NOMBRE_LUGAR").toString());
