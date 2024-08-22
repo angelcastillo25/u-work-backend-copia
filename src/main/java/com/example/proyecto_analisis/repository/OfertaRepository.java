@@ -305,7 +305,8 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     @Query(value =  "SELECT ID_OFERTA,"+
                     "        TITULO,"+
                     "        DATE_FORMAT(FECHA_PUBLICACION, '%d %b, %Y') as FECHA_PUBLICACION, "+
-                    "        PLAZAS_DISPONIBLES "+
+                    "        PLAZAS_DISPONIBLES, "+
+                    "        ESTADO_OFERTA "+
                     "FROM ofertas "+
                     "WHERE ID_OFERTA = :idOfertaP", nativeQuery = true)
     public Object[] obtenerDetalleOfertaAplicante(@Param("idOfertaP") int idOfertaP);

@@ -412,6 +412,7 @@ public class OfertaService {
         solicitanteOferta.put("idOferta", data[0]);
         solicitanteOferta.put("nombreOferta", data[1]);
         solicitanteOferta.put("fechaPublicacion", data[2]);
+        solicitanteOferta.put("estadoSolicitud", data[4]);
         solicitanteOferta.put("cantidadAplicando", cantidadAplicando);
         solicitanteOferta.put("cantidadSeleccionados", cantidadSeleccionados);
 
