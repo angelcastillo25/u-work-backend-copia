@@ -67,9 +67,9 @@ public class EmpresaService {
             .map(obj -> {
                 Map<String, Object> map = new LinkedHashMap<>();
                 map.put("idOfertas", obj[0]);
-                map.put("TITULO", obj[1]);
-                map.put("DESCRIPCION", obj[2]);
-                map.put("FECHA_PUBLICACION", obj[3]);
+                map.put("nombreOferta", obj[1]);
+                map.put("descripcion", obj[2]);
+                map.put("fechaPublicacion", obj[3]);
                 return map;
             }).collect(Collectors.toList());
         objVista.setOfertas(ofertasList);
