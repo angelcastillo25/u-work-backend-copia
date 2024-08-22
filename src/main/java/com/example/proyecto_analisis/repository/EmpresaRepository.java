@@ -30,7 +30,7 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
     public List<Object[]> obtenerInfoOfertas(@Param("idEmpresa") int idEmpresa);
 
     @Query(value = "SELECT  A.ID_EMPRESA, \n" + //
-        "\t\tA.URL_LOGO, \n" + //
+        "        A.URL_LOGO, \n" + //
         "        A.NOMBRE_EMPRESA, \n" + //
         "        B.INDUSTRIA, \n" + //
         "        L.NOMBRE_LUGAR,\n" + //
