@@ -89,7 +89,7 @@ public interface OfertaRepository extends JpaRepository<Solicitante, Integer> {
     @Query(value = "SELECT " +
              "    CAST(e.NOMBRE_EMPRESA AS CHAR) AS NOMBRE_EMPRESA, " +
              "    CAST(COUNT(o.ID_OFERTA) AS CHAR) AS ofertasActivas, " +
-             "    ROUND(AVG(sub.solicitantes_por_oferta)) AS promedio_solicitantes, " +
+             "    IFNULL(ROUND(AVG(sub.solicitantes_por_oferta)),0) AS promedio_solicitantes, " +
              "    e.URL_LOGO " +
              "FROM " +
              "    empresa e " +
