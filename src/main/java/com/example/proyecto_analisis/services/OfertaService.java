@@ -43,7 +43,7 @@ public class OfertaService {
             oferta.setFechaExpiracion(detalleOferta.get("fecha_expiracion").toString());
             oferta.setDescripcion(detalleOferta.get("descripcion").toString());
             oferta.setVacantes((int) detalleOferta.get("plazas_disponibles"));
-            oferta.setUrlEmpresa(detalleOferta.get("url_logo").toString());
+            oferta.setUrlEmpresa(detalleOferta.get("url_logo")!=null?detalleOferta.get("url_logo").toString():null);
             oferta.setLugar(detalleOferta.get("lugar").toString());
             oferta.setTipoEmpleo(detalleOferta.get("tipo_empleo").toString());
             oferta.setTipoContratacion(detalleOferta.get("contrato").toString());
